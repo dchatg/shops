@@ -27,8 +27,8 @@ class Shop():
             else:
                 self.shops[ids] = [ids,name,price]
             print('添加成功')
-            flags = input('继续添加？ 结束请输入n \n')
-            if flags == 'n':
+            flags = input('继续添加？ 结束请输入q \n')
+            if flags == 'q':
                 self.admin()
                 break
             
@@ -52,9 +52,49 @@ class Shop():
             else:
                 print('商品编号错误，请重新输入')
                 
+    '''用于修改商品'''
+    def xq(self):
+        self.show_z()
+        while True:
+            id_s=input('请输入想要修改的商品编号，输入q结束\n')
+            if id_s == 'q':
+                self.admin()
+                break
+            elif id_s in self.shops:
+                print('查询的商品信息如下 \n商品编号     名称     价格')
+                print (f" {self.shops[id_s][0]}          {self.shops[id_s][1]}      {self.shops[id_s][2]}")
+                new_id=input('请输入新的商品编号：\n')
+                new_name=input('请输入新的商品名：\n')
+                try:
+                    new_price=float(input('请输入价格：\n'))
+                except ValueError:
+                    print('价格格式错误，请重试')
+                    self.xq()
+                    break
+                else:
+                    self.shops[new_id]=[new_id,new_name,new_price]
+                    del self.shops[id_s]
+                    print('修改完成')
+                    
+            else:
+                print('商品编号错误，请重新输入')
+                
+    '''用于查询商品'''
+    def find_s(self):
+        while True:
+            find_id=input('请输入查询的商品编号，输入q结束\n')
+            if find_id == 'q':
+                self.admin()
+                break
+            if find_id in self.shops:
+                print('查询的商品信息如下 \n商品编号     名称     价格')
+                print (f" {self.shops[find_id][0]}          {self.shops[find_id][1]}      {self.shops[find_id][2]}")
+            else:
+                print('您查找的商品不存在')
+            
     '''用于输出商品表'''
     def show_z(self):
-        print('商品信息如下 \n商品编号   名称     价格')
+        print('商品信息如下 \n商品编号     名称     价格')
         for i in self.shops:
             print (f" {self.shops[i][0]}          {self.shops[i][1]}      {self.shops[i][2]}")
         if self.n == '2':
@@ -66,22 +106,33 @@ class Shop():
             choice = 0
             print('\n超市管理系统')
             print('1.添加商品')
-            print('2.显示全部商品')
-            print('3.删除商品')
-            print('4.退出系统')
+            print('2.查询商品')
+            print('3.显示全部商品')
+            print('4.修改商品信息')
+            print('5.删除商品')
+            print('6.退出系统')
             choice=input('请输入您的选择\n')
-            if choice == '1':
+            
+            if choice == '1':#添加商品
                 self.add_z()
                 break
-            elif choice == '2':
-                self.n = '2'
-                self.show_z()
+            elif choice == '2':#查询商品
+                self.find_s()
                 break
-            elif choice == '3':
+            elif choice == '3':#显示全部商品
                 self.n = '3'
+                self.show_z()
+                self.admin()
+                break
+            elif choice == '4':#修改商品信息
+                self.n = '4'
+                self.xq()
+                break
+            elif choice == '5':#删除商品信息
+                self.n = '5'
                 self.dele()
                 break
-            elif choice == '4':
+            elif choice == '6':#
                 self.login()
                 break
             else:
@@ -121,7 +172,7 @@ class Shop():
                 
     '''登录选择页面'''
     def login(self):
-        print("============超市购物系统============")
+        print('超市购物系统'.center(30,'='))
         adm = input('购物请按0，登录系统请按1，退出请按e\n')
         if adm == '0':
             self.user()
@@ -151,20 +202,3 @@ if __name__ == '__main__':
     shop=Shop()
     shop.login()
                 
-                
-                
-                
-                
-                
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
