@@ -94,9 +94,10 @@ class Shop():
             
     '''用于输出商品表'''
     def show_z(self):
-        print('商品信息如下 \n商品编号     名称     价格')
-        for i in self.shops:
-            print (f" {self.shops[i][0]}          {self.shops[i][1]}      {self.shops[i][2]}")
+        print('商品信息如下')
+        print('商品编号'+'商品名称'.center(30,' ')+'商品价格')
+        for item in self.shops:
+            print(self.shops[item][0] + self.shops[item][1].center(40,' ')+str(self.shops[item][2]))
         if self.n == '2':
             self.admin()
             
@@ -191,13 +192,11 @@ class Shop():
                 print('用户名错误，请重试')
         elif adm == 'e':
             print('感谢您的使用，期待您的下次光临')
-            self.login()
         else:
             print('错误选项')
             self.login()
             
-            
-            
+                
 if __name__ == '__main__':
     shop=Shop()
     shop.login()
